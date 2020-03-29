@@ -23,6 +23,7 @@ type config struct {
 	Disclaimer            string `toml:"disclaimer"`
 	SuccessMessage        string `toml:"successMessage"`
 	FailureMessage        string `toml:"failureMessage"`
+	AllowRecur            bool   `toml:"allowRecur"`
 	StopRecurInstructions string `toml:"stopRecurInstructions"`
 }
 
@@ -76,51 +77,53 @@ func main() {
 		return c.Render(http.StatusOK, "success.html", cfg)
 	})
 
-	e.GET("/stoprecur", func(c echo.Context) error {
-		return c.Render(http.StatusOK, "stoprecur.html", cfg)
-	})
+	if cfg.AllowRecur {
+		e.GET("/stoprecur", func(c echo.Context) error {
+			return c.Render(http.StatusOK, "stoprecur.html", cfg)
+		})
 
-	e.POST("/recur", func(c echo.Context) error {
-		val, err := strconv.Atoi(c.FormValue("amount"))
-		if err != nil {
-			return c.JSON(http.StatusBadRequest, errorResponse{"error", "invalid params"})
-		}
+		e.POST("/recur", func(c echo.Context) error {
+			val, err := strconv.Atoi(c.FormValue("amount"))
+			if err != nil {
+				return c.JSON(http.StatusBadRequest, errorResponse{"error", "invalid params"})
+			}
 
-		planParams := &stripe.PlanParams{
-			Amount:   stripe.Int64(int64(val)),
-			Interval: stripe.String("month"),
-			Product: &stripe.PlanProductParams{
-				Name: stripe.String("monthly donation"),
-			},
-			Currency: stripe.String(string(stripe.CurrencyUSD)),
-		}
-		p, err := plan.New(planParams)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, errorResponse{"error", "invalid params"})
-		}
+			planParams := &stripe.PlanParams{
+				Amount:   stripe.Int64(int64(val)),
+				Interval: stripe.String("month"),
+				Product: &stripe.PlanProductParams{
+					Name: stripe.String("monthly donation"),
+				},
+				Currency: stripe.String(string(stripe.CurrencyUSD)),
+			}
+			p, err := plan.New(planParams)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, errorResponse{"error", "invalid params"})
+			}
 
-		params := &stripe.CheckoutSessionParams{
-			PaymentMethodTypes: stripe.StringSlice([]string{
-				"card",
-			}),
-			SubscriptionData: &stripe.CheckoutSessionSubscriptionDataParams{
-				Items: []*stripe.CheckoutSessionSubscriptionDataItemsParams{
-					&stripe.CheckoutSessionSubscriptionDataItemsParams{
-						Plan: stripe.String(p.ID),
+			params := &stripe.CheckoutSessionParams{
+				PaymentMethodTypes: stripe.StringSlice([]string{
+					"card",
+				}),
+				SubscriptionData: &stripe.CheckoutSessionSubscriptionDataParams{
+					Items: []*stripe.CheckoutSessionSubscriptionDataItemsParams{
+						&stripe.CheckoutSessionSubscriptionDataItemsParams{
+							Plan: stripe.String(p.ID),
+						},
 					},
 				},
-			},
-			SuccessURL: stripe.String(cfg.BaseURL + "/success"),
-			CancelURL:  stripe.String(cfg.BaseURL + "/cancel"),
-		}
+				SuccessURL: stripe.String(cfg.BaseURL + "/success"),
+				CancelURL:  stripe.String(cfg.BaseURL + "/cancel"),
+			}
 
-		session, err := session.New(params)
-		if err != nil {
-			return c.JSON(http.StatusInternalServerError, errorResponse{"error", "invalid params"})
-		}
+			session, err := session.New(params)
+			if err != nil {
+				return c.JSON(http.StatusInternalServerError, errorResponse{"error", "invalid params"})
+			}
 
-		return c.JSON(http.StatusOK, sessionIDResponse{"ok", session.ID})
-	})
+			return c.JSON(http.StatusOK, sessionIDResponse{"ok", session.ID})
+		})
+	}
 
 	e.POST("/donate", func(c echo.Context) error {
 		val, err := strconv.Atoi(c.FormValue("amount"))
