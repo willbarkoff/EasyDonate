@@ -1,6 +1,7 @@
 package setup
 
 import (
+	"context"
 	"net/http"
 	"runtime"
 	"strconv"
@@ -19,6 +20,7 @@ import (
 var setupCode string
 var srv http.Server
 var setupPage = template.Must(template.ParseFiles("./setup/setup.html"))
+var setupCompletePage = template.Must(template.ParseFiles("./setup/complete.html"))
 
 type setupPageData struct {
 	OS        string
@@ -204,4 +206,15 @@ func setup(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 		return nil
 	})
+
+	setupCompletePage.Execute(w, setupPageData{
+		OS:     runtime.GOOS,
+		Arch:   runtime.GOARCH,
+		GoVers: runtime.Version(),
+		Time:   time.Now().Format(time.RFC1123), // use RFC1123 because it's easy to read for non-technical audiences
+	})
+
+	errors.Logger.Info().Msg("Setup is complete!")
+
+	go srv.Shutdown(context.Background())
 }
