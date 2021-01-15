@@ -33,7 +33,8 @@ type setupPageData struct {
 
 var db *gorm.DB
 
-//Setup starts an HTTP server used for setting up EasyDonate. This is done seperately so as to prevent the client from becoming too large. It's also easier to manage.
+// Setup starts an HTTP server used for setting up EasyDonate. This is done seperately so as to prevent the client from becoming too large. It's also easier to manage.
+// Setup returns control to the caller once setup has been completed.
 func Setup(port int, database *gorm.DB) {
 	var err error
 	db = database
@@ -216,5 +217,10 @@ func setup(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 
 	errors.Logger.Info().Msg("Setup is complete!")
 
-	go srv.Shutdown(context.Background())
+	go func() {
+		err := srv.Shutdown(context.Background())
+		if err != nil {
+			errors.FatalMsg(err, "Setup has been completed, but the setup server couldn't shut down. This is usually okay, and the process will terminate; however, upon restart of the process, EasyDonate will be set up.")
+		}
+	}()
 }
