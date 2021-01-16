@@ -13,6 +13,11 @@ Learn more at [donorfide.org](https://donorfide.org).
 ---
 
 > ⚠️ This is the documentation for Donorfide version 3.0, which is still very much a work in progress, and should not be used in production environments. Donorfide v3.0 is a continuation of the EasyDonate project, with an emphasis on usability. 
+> 
+> For **EasyDonate 2.0**, the latest stable version of this software, see the `master` branch:
+> ```shell
+> % git checkout -b master
+> ```
 
 Donorfide is an open-source, online payment processing and donor management platform that allows your nonprofit to process donations easily, so you can focus on doing good.
 
