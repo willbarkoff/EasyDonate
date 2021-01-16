@@ -1,4 +1,4 @@
-module github.com/willbarkoff/easydonate/easydonate-server
+module github.com/willbarkoff/donorfide/donorfide-server
 
 go 1.15
 

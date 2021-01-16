@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/willbarkoff/easydonate/easydonate-server/errors"
+	"github.com/willbarkoff/donorfide/donorfide-server/errors"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"

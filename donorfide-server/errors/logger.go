@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-const fatalMsg = "Something went wrong and EasyDonate had to stop."
+const fatalMsg = "Something went wrong and Donorfide had to stop."
 
 // Logger is the system-wide logger
 var Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
