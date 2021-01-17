@@ -1,0 +1,74 @@
+@charset "utf-8"
+
+.hero-text
+	display: flex
+	justify-content: center
+	align-items: center
+
+.credit-card-container
+	display: grid
+	grid-template-columns: 1fr 5fr 1fr
+	grid-template-rows: 1fr 5fr 1f
+
+	.credit-card
+		grid-column-start: 2
+		grid-row-start: 2
+		min-height: 250px
+		background: linear-gradient(141deg, #009ca1 0%, #00aad4 71%, #0097ee 100%)
+		border-radius: 20px
+		box-shadow: 10px 10px 85px 0px rgba(0,0,0,0.75)
+
+		display: grid
+		grid-template-columns: 0.5fr repeat(3, 1fr) 0.5fr
+		grid-template-rows: 0.5fr 0.9fr 1.3fr repeat(2, 1fr) 0.5fr
+
+		@media screen and (max-width: 972px)
+			grid-template-rows: 0.5fr 0.9fr 1.3fr 1fr 0.5fr
+
+		.card-number
+			grid-row: 3
+			grid-column: 2 / span 3
+			align-self: end
+
+			@media screen and (min-width: 972px) and (max-width: 1216px)
+				font-size: 1.25rem !important
+
+			@media screen and (max-width: 972px)
+				font-size: 1rem !important
+
+		.cardholder-name
+			grid-row: 4
+			grid-column: 2 / span 2
+
+			@media screen and (max-width: 972px)
+				.cardholder-name-label
+					font-size: 10px !important
+
+				.cardholder-name-content
+					font-size: 0.9em
+
+		.expiry
+			grid-row: 4
+			grid-column: 4
+
+			@media screen and (max-width: 972px)
+				.expiry-label
+					font-size: 10px !important
+
+				.expiry-content
+					font-size: 0.9em
+
+		.stripe
+			background-color: #fff9
+			grid-row: 2
+			grid-column: span 5
+
+.columns
+	.column
+		.is-section-icon
+			width: 100%
+			min-height: 100%
+
+			svg
+				width: 100%
+				height: 100%

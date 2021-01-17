@@ -1,0 +1,138 @@
+<html lang="en">
+
+<head>
+	{% include head.html %}
+	<link rel="stylesheet" href="/assets/css/home.css">
+</head>
+
+<body>
+	{% include header.html %}
+
+	<!-- Jumbotron -->
+	<section class="section hero is-light">
+		<div class="hero-body">
+			<div class="container">
+				<div class="columns">
+					<div class="column hero-text">
+						<div>
+							<h1 class="title">
+								Do <span class="has-text-primary">more</span> good.
+							</h1>
+							<h2 class="subtitle">
+								Focus on doing what your nonprofit does best, not processing payments.
+							</h2>
+						</div>
+					</div>
+					<div class="column is-hidden-mobile credit-card-container">
+						<div class="credit-card has-text-white">
+							<span class="card-number is-family-monospace is-size-4">4000 0566 5566 5556</span>
+							<div class="cardholder-name">
+								<span class="heading cardholder-name-label mt-1 mb-0">Cardholder Name</span>
+								<span class="is-family-monospace cardholder-name-content">William Barkoff</span>
+							</div>
+							<div class="expiry">
+								<span class="heading expiry-label mt-1 mb-0">Expiry</span>
+								<span class="is-family-monospace expiry-content">10/24</span>
+							</div>
+							<div class="stripe"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Hero -->
+	<section class="hero is-primary is-bold">
+		<div class="hero-body">
+			<div class="container has-text-centered">
+				<p class="block is-size-5">
+					Donorfide is an open-source, online payment processing and donor management platform that allows
+					your nonprofit to process donations easily, so you can focus on doing good.
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Feature: Process payments -->
+	<section class="section">
+		<div class="container">
+			<div class="columns">
+				<div class="column">
+					<h1 class="title">Process payments</h1>
+					<h2 class="subtitle">Accept payments of any kind.</h2>
+					<p>
+						Donorfide supports credit and debit cards, digital wallets like Apple Pay, Google Pay, and
+						Microsoft Pay, ACH transfers, wires, and even checks.
+					</p>
+				</div>
+				<div class="column is-one-quarter">
+					<div class="icon is-section-icon has-text-primary">
+						<i class="fas fa-money-bill-wave"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Feature: Subscriptions -->
+	<section class="section">
+		<div class="container">
+			<div class="columns">
+				<div class="column">
+					<h1 class="title">Collect and collect and collect</h1>
+					<h2 class="subtitle">Process recurring donations.</h2>
+					<p>
+						Donorfide supports monthly, yearly, or even weekly donations! That means that you and your
+						donors don't even need to think about recurring donations. We also make it super easy for you or
+						your donors to cancel recurring donations, because we know how important it is to have financial
+						flexability.
+					</p>
+				</div>
+				<div class="column is-one-quarter">
+					<div class="icon is-section-icon has-text-primary">
+						<i class="fas fa-redo"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<!-- Featuer: Donormail -->
+	<section class="section">
+		<div class="container">
+			<div class="columns">
+				<div class="column">
+					<h1 class="title">Contact donors with ease</h1>
+					<h2 class="subtitle">Process recurring donations.</h2>
+					<p>
+						Export a list of donors to CSV, or automatically add them to a mailing list with MailChimp, so
+						you can always get in touch with your supporters.
+					</p>
+				</div>
+				<div class="column is-one-quarter">
+					<div class="icon is-section-icon has-text-primary">
+						<i class="fas fa-envelope-open-text"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA -->
+	<section class="hero is-light is-bold is-small">
+		<div class="hero-body">
+			<div class="container has-text-centered">
+				<h1 class="title">Ready to get started?</h1>
+				<a href="#" class="button is-primary is-light">Install Donorfide</a>
+				<a href="#" class="button is-light">Demo</a>
+			</div>
+		</div>
+	</section>
+
+	{% include footer.html %}
+	{% include foot.html %}
+</body>
+
+</html>

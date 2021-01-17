@@ -1,6 +1,6 @@
 <div align="center">
 
-![Donorfide](./logotype.png)
+![Donorfide](./donorfide-site/assets/img/logotype.png)
 
 <p>
 ✨ Donorfide makes it easy for your nonprofit organization to collect donations.

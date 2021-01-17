@@ -1,0 +1,64 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+	<div class="navbar-brand">
+		<a class="navbar-item" href="/">
+			<img src="/assets/img/logo.svg" height="28" class="pr-2">
+			<strong>Donorfide</strong>
+		</a>
+
+		<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+			<span aria-hidden="true"></span>
+			<span aria-hidden="true"></span>
+			<span aria-hidden="true"></span>
+		</a>
+	</div>
+
+	<div id="navbarBasicExample" class="navbar-menu">
+		<div class="navbar-start">
+			<a class="navbar-item" href="/">
+				Home
+			</a>
+
+			<a class="navbar-item" href="/docs">
+				Docs
+			</a>
+
+			<div class="navbar-item has-dropdown is-hoverable">
+				<a class="navbar-link">
+					More
+				</a>
+
+				<div class="navbar-dropdown">
+					<a class="navbar-item">
+						About
+					</a>
+					<a class="navbar-item">
+						Contact
+					</a>
+					<hr class="navbar-divider">
+					<a class="navbar-item" href="https://github.com/willbarkoff/donorfide/issues/new" target="_blank"
+						rel="noopener noreferrer">
+						Report an issue
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="navbar-end">
+			<div class="navbar-item">
+				<div class="buttons">
+					<a class="button is-primary">
+						<strong>Install</strong>
+					</a>
+					<a class="button is-light">
+						Get help
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+{% if site.banner.show %}
+<div class="notification is-{{site.banner.type}} is-light is-radiusless is-marginless">
+	{{site.banner.message | markdownify}}
+</div>
+{% endif %}
