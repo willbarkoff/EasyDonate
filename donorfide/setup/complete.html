@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Setup Donorfide</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+	<script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"></script>
+	<style>
+		.box {
+			height: 100%
+		}
+	</style>
+</head>
+
+<body>
+	<section class="section hero is-info is-bold">
+		<div class="hero-body">
+			<div class="container">
+				<h1 class="title">
+					Welcome to Donorfide.
+				</h1>
+				<p class="subtitle">
+					If you're seeing this screen, you've successfully installed Donorfide and are ready to get set up!
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="section">
+		<div class="container">
+
+			<!-- install success notification -->
+			<div class="notification is-success" role="alert">
+				<strong>Donorfide has been installed!</strong> Have feedback about the installation process? <a
+					href="https://github.com/willbarkoff/Donorfide/issues/new?labels=installation" target="_blank"
+					rel="noopener noreferrer">File an issue on GitHub</a>.
+			</div>
+
+			<!-- access donorfide section -->
+			<h1 class="title">Access Donorfide</h1>
+			<h2 class="subtitle">Just click the button below to head on over to Donorfide.</h2>
+			<p class="block">
+				<a href="/" class="button is-large is-link">Take me to Donorfide</a>
+			</p>
+
+			<!-- support the project -->
+			<h1 class="title">Support the Donorfide Project</h1>
+			<h2 class="subtitle">Donorfide can use your help.</h2>
+			<p class="block">
+				Whether it's contributing code, or supporting the project financially, Donorfide greatly appreciates
+				your help. You can learn more about contributing code over at <a
+					href="https://github.com/willbarkoff/donorfide">GitHub</a>, or you can give your financial suport
+				by clicking the button below.
+			</p>
+
+			<a href="https://buymeacoffee.com/willbarkoff" class="button is-primary">Support financially</a>
+
+
+		</div>
+	</section>
+
+	<footer class="footer">
+		<div class="content has-text-centered">
+			<p>
+				This is <strong>Donorfide</strong> setup.
+			</p>
+			<p>
+				Page rendered at {{.Time}} on Donorfide for {{.OS}}/{{.Arch}} built with {{.GoVers}}
+			</p>
+		</div>
+	</footer>
+</body>
+
+</html>
