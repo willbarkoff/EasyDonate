@@ -36,4 +36,4 @@ The remainder of this document focuses on technical information about Donorfide.
 
 This repository is split into 2 sections
 - [`donorfide`](./donorfide) holds the code related to the donorfide server and the donorfide client.
-- [`docs`](./docs) holds the code related to the Jekyll site at donorfide.org.
+- [`donorfide-site`](./donorfide-site) holds the code related to the Jekyll site at donorfide.org.
