@@ -1,0 +1,43 @@
+<html lang="en">
+
+<head>
+	{% include head.html %}
+	<link rel="stylesheet" href="/assets/css/highlight.css">
+</head>
+
+<body>
+	{% include header.html %}
+
+	<div class="columns is-gapless mb-0">
+		<div class="column is-one-fifth has-background-light">
+			{% include docs-sidebar.html %}
+		</div>
+		<div class="column">
+			<section class="section hero is-small is-primary is-bold">
+				<div class="hero-body">
+					<div class="container">
+						<h1 class="title">
+							{{page.title}}
+						</h1>
+						<h2 class="subtitle">
+							{{page.subtitle}}
+						</h2>
+					</div>
+				</div>
+			</section>
+
+			<section class="section">
+				<div class="container">
+					<div class="content">
+						{{content | smartify}}
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+
+	{% include footer.html %}
+	{% include foot.html %}
+</body>
+
+</html>

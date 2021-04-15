@@ -1,7 +1,7 @@
 package server
 
 import (
-	"io/fs"
+	"github.com/willbarkoff/donorfide/donorfide/util"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -9,12 +9,14 @@ import (
 	"gorm.io/gorm"
 )
 
-func SetupRoutes(static fs.FS, db *gorm.DB) *mux.Router {
+func SetupRoutes(static http.FileSystem, db *gorm.DB, f util.Flags) *mux.Router {
 	r := mux.NewRouter()
-	apiSubroute := r.PathPrefix("/api").Subrouter()
-	api.SetupAPI(apiSubroute, db)
 
-	r.Path("/").Handler(http.FileServer(http.FS(static)))
+	apiSubroute := r.PathPrefix("/api").Subrouter()
+
+	api.SetupAPI(apiSubroute, db, f)
+
+	r.PathPrefix("/").Handler(http.FileServer(static))
 
 	return r
 }

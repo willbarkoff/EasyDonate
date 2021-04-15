@@ -2,58 +2,64 @@
 <html>
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Setup Donorfide</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
-	<script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Setup Donorfide</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700">
+    <style>
+        * {
+            font-family: 'DM Sans', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
-	<section class="section hero is-info is-bold">
-		<div class="hero-body">
-			<div class="container">
-				<h1 class="title">
-					Welcome to Donorfide.
-				</h1>
-				<p class="subtitle">
-					If you're seeing this screen, you've successfully installed Donorfide and are ready to get set up!
-				</p>
-			</div>
-		</div>
-	</section>
+<section class="section hero is-info is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Welcome to Donorfide.
+            </h1>
+            <p class="subtitle">
+                If you're seeing this screen, you've successfully installed Donorfide and are ready to get set up!
+            </p>
+        </div>
+    </div>
+</section>
 
-	{{if .HasErrors}}
-	<section class="section">
-		<div class="container">
-			<div class="notification is-warning" role="alert">
-				<strong>The following errors occured with setup.</strong>
-				<ul>
-					{{range $error := .Errors}}
-					<li>{{$error}}</li>
-					{{end}}
-				</ul>
-			</div>
-		</div>
-	</section>
-	{{end}}
+{{if .HasErrors}}
+<section class="section">
+    <div class="container">
+        <div class="notification is-warning" role="alert">
+            <strong>The following errors occured with setup.</strong>
+            <ul>
+                {{range $error := .Errors}}
+                <li>{{$error}}</li>
+                {{end}}
+            </ul>
+        </div>
+    </div>
+</section>
+{{end}}
 
-	<form action="/setup" method="post">
+<form action="/setup" method="post">
 
-		<!-- Unlock Donorfide -->
-		<section class="section">
-			<div class="container">
-				<div class="heading">Step 1</div>
-				<h1 class="title is-3"><i class="fas fa-unlock fa-fw"></i> Unlock Donorfide</h1>
-				<p class="block">
-					Donorfide strives to be easy to set up and administrate. The first step is to unlock
-					Donorfide. We just want to make sure that you have permission to setup Donorfide.
-				</p>
-				<p class="block">
-					You should be able to a code to set up easy donate in your <em>server logs</em>. It should look
-					something like this:
-				</p>
-				<pre class="block"><code><span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span> Starting Donorfide
+    <!-- Unlock Donorfide -->
+    <section class="section">
+        <div class="container">
+            <div class="heading">Step 1</div>
+            <h1 class="title is-3"><i class="fas fa-unlock fa-fw"></i> Unlock Donorfide</h1>
+            <p class="block">
+                Donorfide strives to be easy to set up and administrate. The first step is to unlock
+                Donorfide. We just want to make sure that you have permission to setup Donorfide.
+            </p>
+            <p class="block">
+                You should be able to a code to set up easy donate in your <em>server logs</em>. It should look
+                something like this:
+            </p>
+            <pre class="block"><code><span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span> Starting Donorfide
 <span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span> Donorfide hasn't been setup yet.
 <span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span> Starting setup server Port=8989
 <span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span> 
@@ -63,238 +69,255 @@
 <span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span> 
 <span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span> ====      END SETUP CODE     ====
 <span class="has-text-grey">5:14PM</span> <span class="has-text-success">INF</span></code></pre>
-				<p class="block">
-					If you're having trouble finding this, you should be able to set the <em>enviornment variable</em>
-					<code>DONORFIDE_SETUP_CODE</code> to some code that you can use here. Note that it is case
-					sensitive.
-					You can do this the same way that you set the <code>DONORFIDE_DATABASE</code> and
-					<code>DONORFIDE_DSN</code> enviorment variables.
-				</p>
-				<p class="block">This is the hardest step, so if you can do this, you can do anything!</p>
-				<ul class="block">
-					<li><i class="fas fa-fw fa-book"></i> <a
-							href="https://devcenter.heroku.com/articles/logging#log-retrieval-via-the-web-dashboard"
-							target="_blank" rel="noopener noreferrer">Heroku's documentation on viewing logs</a></li>
-					<li><i class="fas fa-fw fa-book"></i> <a
-							href="https://cloud.google.com/appengine/docs/standard/go/writing-application-logs"
-							target="_blank" rel="noopener noreferrer">Google AppEngine's documentation on viewing
-							logs</a></li>
-					<li><i class="fas fa-fw fa-book"></i> <a
-							href="https://docs.microsoft.com/en-us/azure/app-service/configure-common" target="_blank"
-							rel="noopener noreferrer">Azure App Service's documentation on setting
-							enviorment variables</a></li>
-				</ul>
-				<div class="field">
-					<label class="label">Your setup code</label>
-					<div class="control">
-						<input required class="input" name="setup-code" type="text" placeholder="Your setup code">
-					</div>
-				</div>
-			</div>
-		</section>
+            <p class="block">
+                If you're having trouble finding this, you should be able to set the <em>enviornment variable</em>
+                <code>DONORFIDE_SETUP_CODE</code> to some code that you can use here. Note that it is case
+                sensitive.
+                You can do this the same way that you set the <code>DONORFIDE_DATABASE</code> and
+                <code>DONORFIDE_DSN</code> enviorment variables.
+            </p>
+            <p class="block">This is the hardest step, so if you can do this, you can do anything!</p>
+            <ul class="block">
+                <li><i class="fas fa-fw fa-book"></i> <a
+                        href="https://devcenter.heroku.com/articles/logging#log-retrieval-via-the-web-dashboard"
+                        target="_blank" rel="noopener noreferrer">Heroku's documentation on viewing logs</a></li>
+                <li><i class="fas fa-fw fa-book"></i> <a
+                        href="https://cloud.google.com/appengine/docs/standard/go/writing-application-logs"
+                        target="_blank" rel="noopener noreferrer">Google AppEngine's documentation on viewing
+                    logs</a></li>
+                <li><i class="fas fa-fw fa-book"></i> <a
+                        href="https://docs.microsoft.com/en-us/azure/app-service/configure-common" target="_blank"
+                        rel="noopener noreferrer">Azure App Service's documentation on setting
+                    enviorment variables</a></li>
+            </ul>
+            <div class="field">
+                <label class="label">Your setup code</label>
+                <div class="control">
+                    <input required class="input" name="setup-code" type="text" placeholder="Your setup code">
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<!-- Set up Stripe -->
-		<section class="section">
-			<div class="container">
-				<div class="heading">Step 2</div>
-				<h1 class="title is-3"><i class="far fa-credit-card fa-fw"></i> Set up Stripe</h1>
-				<p class="block">
-					Donorfide uses Stripe to process payments. If you haven't already, you can head on over to <a
-						href="https://stripe.com">stripe.com</a> to set up an account. Once you have your account,
-					head on over to the "Developers > API keys" tab.
-				</p>
-				<p class="block">
-					You should have two keys, your <strong>Publishable key</strong>, which starts with
-					<code>pk_</code>, and your <strong>Secret key</strong>, which starts with <code>sk_</code>. Note
-					that once you view your secret key, you won't be able to see it again, so write it down
-					someplace secure. A password manager is a good place to put it.
-				</p>
-				<ul class="block">
-					<li><i class="fas fa-fw fa-book"></i> <a href="https://stripe.com/docs/keys" target="_blank"
-							rel="noopener noreferrer">Stripe's documentation on API keys</a></li>
-				</ul>
-				<div class="field">
-					<label class="label">Publishable key</label>
-					<div class="control">
-						<input required class="input" name="stripe-pk" type="text" placeholder="pk_">
-					</div>
-				</div>
-				<div class="field">
-					<label class="label">Secret key</label>
-					<div class="control">
-						<input required class="input" name="stripe-sk" type="text" placeholder="sk_">
-					</div>
-				</div>
-			</div>
-		</section>
+    <!-- Set up Stripe -->
+    <section class="section">
+        <div class="container">
+            <div class="heading">Step 2</div>
+            <h1 class="title is-3"><i class="far fa-credit-card fa-fw"></i> Set up Stripe</h1>
+            <p class="block">
+                Donorfide uses Stripe to process payments. If you haven't already, you can head on over to <a
+                    href="https://stripe.com">stripe.com</a> to set up an account. Once you have your account,
+                head on over to the "Developers > API keys" tab.
+            </p>
+            <p class="block">
+                You should have two keys, your <strong>Publishable key</strong>, which starts with
+                <code>pk_</code>, and your <strong>Secret key</strong>, which starts with <code>sk_</code>. Note
+                that once you view your secret key, you won't be able to see it again, so write it down
+                someplace secure. A password manager is a good place to put it.
+            </p>
+            <ul class="block">
+                <li><i class="fas fa-fw fa-book"></i> <a href="https://stripe.com/docs/keys" target="_blank"
+                                                         rel="noopener noreferrer">Stripe's documentation on API
+                    keys</a></li>
+            </ul>
+            <div class="field">
+                <label class="label">Publishable key</label>
+                <div class="control">
+                    <input required class="input" name="stripe-pk" type="text" placeholder="pk_">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Secret key</label>
+                <div class="control">
+                    <input required class="input" name="stripe-sk" type="text" placeholder="sk_">
+                </div>
+            </div>
+        </div>
+    </section>
 
-		<!-- Set up your organization -->
-		<section class="section">
-			<div class="container">
-				<div class="heading">Step 3</div>
-				<h1 class="title is-3"><i class="fas fa-donate fa-fw"></i> Set up your organization</h1>
-				<p class="block">
-					Donorfide needs the following infomation to provide to your donors.
-				</p>
-				<div class="columns">
-					<div class="column">
-						<div class="field">
-							<label class="label">Organization name</label>
-							<div class="control">
-								<input required class="input" name="org-name" type="text"
-									placeholder="Citizens Against Cancer">
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="field">
-							<label class="label">Organization website</label>
-							<div class="control">
-								<input required class="input" name="org-site" type="text"
-									placeholder="https://citizensagainstcancer.org">
-							</div>
-							<p class="help">Make sure that you include the "http://" or "https://"</p>
-						</div>
-					</div>
-				</div>
-				<div class="columns">
-					<div class="column">
-						<div class="field">
-							<label class="label">Contact phone</label>
-							<div class="control">
-								<input required class="input" name="org-phone" type="text" placeholder="(212) 555-8933">
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="field">
-							<label class="label">Contact email</label>
-							<div class="control">
-								<input required class="input" name="org-email" type="text"
-									placeholder="hello@citizensagainstcancer.org">
-							</div>
-						</div>
-					</div>
-				</div>
+    <!-- Set up your organization -->
+    <section class="section">
+        <div class="container">
+            <div class="heading">Step 3</div>
+            <h1 class="title is-3"><i class="fas fa-donate fa-fw"></i> Set up your organization</h1>
+            <p class="block">
+                Donorfide needs the following infomation to provide to your donors.
+            </p>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Organization name</label>
+                        <div class="control">
+                            <input required class="input" name="org-name" type="text"
+                                   placeholder="Citizens Against Cancer">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Organization website</label>
+                        <div class="control">
+                            <input required class="input" name="org-site" type="text"
+                                   placeholder="https://citizensagainstcancer.org">
+                        </div>
+                        <p class="help">Make sure that you include the "http://" or "https://"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Contact phone</label>
+                        <div class="control">
+                            <input required class="input" name="org-phone" type="text" placeholder="(212) 555-8933">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Contact email</label>
+                        <div class="control">
+                            <input required class="input" name="org-email" type="text"
+                                   placeholder="hello@citizensagainstcancer.org">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-				<p class="block">
-					We also strongly reccomend setting up email recipts via Stripe.
-				</p>
+            <p class="block">
+                We also strongly recommend setting up email receipts via Stripe.
+            </p>
 
-				<ul class="block">
-					<li>
-						<i class="fas fa-fw fa-book"></i> <a href="https://stripe.com/docs/receipts" target="_blank"
-							rel="noopener noreferrer">Stripe's documentation on setting up receipts</a>
-					</li>
-				</ul>
+            <ul class="block">
+                <li>
+                    <i class="fas fa-fw fa-book"></i> <a href="https://stripe.com/docs/receipts" target="_blank"
+                                                         rel="noopener noreferrer">Stripe's documentation on setting up
+                    receipts</a>
+                </li>
+            </ul>
 
-				<p class="block">
-					By default, Donorfide sends telemetry data back to the developers so that we can
-					improve Donorfide for you and your donors. <strong>This data never includes any personal
-						information, of you or your donors.</strong>
-				</p>
+            <div class="field">
+                <label class="label">Donation Page Host</label>
+                <div class="control">
+                    <input type="text" class="input" name="donation-page" id="donation-page"
+                           placeholder="https://donate.citizensagainstcancer.org">
+                </div>
+                <p class="help">This is the URL where Donorfide will live. Please make sure to include the http/https,
+                    and exclude any trailing slash.</p>
+                <script>
+                    let donationPageInput = document.querySelector("#donation-page");
+                    donationPageInput.value = document.location.origin;
+                </script>
+            </div>
 
-				<div class="field">
-					<div class="control">
-						<label class="checkbox">
-							<input type="checkbox" name="telemetry-opt-out">
-							Opt out of telemetry
-						</label>
-						<p class="help">Please consider leaving this unticked, it really helps us out!</p>
-					</div>
-				</div>
-			</div>
-		</section>
 
-		<!-- Set up your administrator account -->
-		<section class="section">
-			<div class="container">
-				<div class="heading">Step 4</div>
-				<h1 class="title is-3"><i class="fas fa-user-shield fa-fw"></i> Set up your administrator account</h1>
-				<p class="block">
-					Donorfide lets you set up an <em>administrator account</em> to manage Donorfide. Once you set up
-					an administrator account, you can add more administrator accounts for your teammates. We reccomend
-					setting up an administrator account for yourself first.
-				</p>
-				<div class="columns">
-					<div class="column">
-						<div class="field">
-							<label class="label">First name</label>
-							<div class="control">
-								<input required class="input" name="admin-fname" type="text" placeholder="Joe">
-							</div>
-						</div>
-					</div>
-					<div class="column">
-						<div class="field">
-							<label class="label">Last name</label>
-							<div class="control">
-								<input required class="input" name="admin-lname" type="text" placeholder="Schmoe">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="field">
-					<label class="label">Email address</label>
-					<div class="control">
-						<input required class="input" name="admin-email" type="email"
-							placeholder="joe@citizensagainstcancer.org">
-					</div>
-				</div>
-				<div class="columns">
-					<div class="column">
-						<div class="field">
-							<label class="label">Password</label>
-							<div class="control">
-								<input required class="input" name="admin-password" type="password"
-									placeholder="Password">
-							</div>
-							<p class="help">Your password must contain at least 8 characters, and have 1 letter and 1
-								number.</p>
-						</div>
-					</div>
-					<div class="column">
-						<div class="field">
-							<label class="label">Password (again)</label>
-							<div class="control">
-								<input required class="input" name="admin-password2" type="password"
-									placeholder="Password">
-							</div>
-							<p class="help">Enter the same password again to make sure that you didn't mistype.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+            <p class="block">
+                By default, Donorfide sends telemetry data back to the developers so that we can
+                improve Donorfide for you and your donors. <strong>This data never includes any personal
+                information, of you or your donors.</strong>
+            </p>
 
-		<!-- Done! -->
-		<section class="section">
-			<div class="container">
-				<div class="heading">Step 5</div>
-				<h1 class="title is-3"><i class="fas fa-glass-cheers fa-fw"></i> Launch Donorfide</h1>
+            <div class="field">
+                <div class="control">
+                    <label class="checkbox">
+                        <input type="checkbox" name="telemetry-opt-out">
+                        Opt out of telemetry
+                    </label>
+                    <p class="help">Please consider leaving this unticked, it really helps us out!</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-				<p class="block">
-					That's all the questions we have for you right now! Hit the big blue button below to launch
-					Donorfide. Note that this can take a few seconds, and once you click the button, we ask that you
-					please don't press the back or reload buttons in your browser. If you do, you might have to start
-					over.
-				</p>
+    <!-- Set up your administrator account -->
+    <section class="section">
+        <div class="container">
+            <div class="heading">Step 4</div>
+            <h1 class="title is-3"><i class="fas fa-user-shield fa-fw"></i> Set up your administrator account</h1>
+            <p class="block">
+                Donorfide lets you set up an <em>administrator account</em> to manage Donorfide. Once you set up
+                an administrator account, you can add more administrator accounts for your teammates. We reccomend
+                setting up an administrator account for yourself first.
+            </p>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">First name</label>
+                        <div class="control">
+                            <input required class="input" name="admin-fname" type="text" placeholder="Joe">
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Last name</label>
+                        <div class="control">
+                            <input required class="input" name="admin-lname" type="text" placeholder="Schmoe">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email address</label>
+                <div class="control">
+                    <input required class="input" name="admin-email" type="email"
+                           placeholder="joe@citizensagainstcancer.org">
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control">
+                            <input required class="input" name="admin-password" type="password"
+                                   placeholder="Password">
+                        </div>
+                        <p class="help">Your password must contain at least 8 characters, and have 1 letter and 1
+                            number.</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Password (again)</label>
+                        <div class="control">
+                            <input required class="input" name="admin-password2" type="password"
+                                   placeholder="Password">
+                        </div>
+                        <p class="help">Enter the same password again to make sure that you didn't mistype.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-				<button type="submit" class="button is-large is-link">Launch Donorfide</button>
-			</div>
-		</section>
-	</form>
+    <!-- Done! -->
+    <section class="section">
+        <div class="container">
+            <div class="heading">Step 5</div>
+            <h1 class="title is-3"><i class="fas fa-glass-cheers fa-fw"></i> Launch Donorfide</h1>
 
-	<footer class="footer">
-		<div class="content has-text-centered">
-			<p>
-				This is <strong>Donorfide</strong> setup.
-			</p>
-			<p>
-				Page rendered at {{.Time}} on Donorfide for {{.OS}}/{{.Arch}} built with {{.GoVers}}
-			</p>
-		</div>
-	</footer>
+            <p class="block">
+                That's all the questions we have for you right now! Hit the big blue button below to launch
+                Donorfide. Note that this can take a few seconds, and once you click the button, we ask that you
+                please don't press the back or reload buttons in your browser. If you do, you might have to start
+                over.
+            </p>
+
+            <button type="submit" class="button is-large is-link">Launch Donorfide</button>
+        </div>
+    </section>
+</form>
+
+<footer class="footer">
+    <div class="content has-text-centered">
+        <p>
+            This is <strong>Donorfide</strong> setup.
+        </p>
+        <p>
+            Page rendered at {{.Time}} on Donorfide for {{.OS}}/{{.Arch}} built with {{.GoVers}}
+        </p>
+    </div>
+</footer>
 </body>
 
 </html>

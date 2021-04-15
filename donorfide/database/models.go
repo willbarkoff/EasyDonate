@@ -1,18 +1,27 @@
 package database
 
-// Prefs is the table that holds system-wide settings
-type Prefs struct {
-	ID    uint `gorm:"autoIncrement"`
-	Key   string
-	Value string
+// Pref is the table that holds system-wide settings
+type Pref struct {
+	ID    uint   `gorm:"autoIncrement" json:"id"`
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
 
-// Users is the table that holds users
-type Users struct {
-	ID        uint `gorm:"autoIncrement"`
-	FirstName string
-	LastName  string
-	Email     string
-	Password  string
-	Level     uint8
+// User is the table that holds users
+type User struct {
+	ID        uint   `gorm:"autoIncrement,primaryKey" json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+	Email     string `json:"email"`
+	Password  string `json:"-"`
+	Level     uint8  `json:"level"`
+}
+
+type Donation struct {
+	ID            uint   `gorm:"autoIncrement,primaryKey" json:"id"`
+	Email         string `json:"email"`
+	PaymentIntent string `json:"payment_intent"`
+	Currency      string `json:"currency"`
+	Amount        int64  `json:"amount"`
+	Status        string `json:"status"`
 }

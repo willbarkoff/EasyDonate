@@ -1,0 +1,48 @@
+<aside class="menu p-5">
+	<ul class="menu-list">
+		{% include sidebar/sidebar-link.html title="Documentation home" url="/docs/" %}
+	</ul>
+	<p class="menu-label">
+		Guides
+	</p>
+	<ul class="menu-list">
+		{% include sidebar/sidebar-link.html title="Installation" url="/docs/guides/install.html"%}
+		{% include sidebar/sidebar-link.html title="Setup" url="/docs/guides/setup.html"%}
+	</ul>
+	<p class="menu-label">
+		Administration
+	</p>
+	<ul class="menu-list">
+		<li><a>Donation dashboard</a></li>
+		<li><a>Invitations</a></li>
+		<li><a>Cloud Storage Environment Settings</a></li>
+		<li><a>Authentication</a></li>
+	</ul>
+	<p class="menu-label">
+		Customization
+	</p>
+	<ul class="menu-list">
+		{% include sidebar/sidebar-link.html title="Development" url="/docs/dev/" %}
+		{% include sidebar/sidebar-link.html title="Themes" url="/docs/customization/themes/" %}
+		<li>
+			<ul>
+				{% include sidebar/sidebar-link.html title="Importing a theme"
+				url="/docs/customization/themes/importing.html" %}
+				{% include sidebar/sidebar-link.html title="Writing a theme"
+				url="/docs/customization/themes/writing.html"
+				%}
+			</ul>
+		</li>
+		{% include sidebar/sidebar-link.html title="Plugins" url="/docs/customization/plugins/" %}
+	</ul>
+	<p class="menu-label">
+		Security & Privacy
+	</p>
+	<ul class="menu-list">
+		{% include sidebar/sidebar-link.html title="Responsible disclosure"
+		url="/docs/legal/responsible-disclosure.html"%}
+		{% include sidebar/sidebar-link.html title="Privacy policy" url="/docs/legal/privacy.html"%}
+		{% include sidebar/sidebar-link.html title="License"
+		url="https://github.com/willbarkoff/donorfide/blob/v3/LICENSE"%}
+	</ul>
+</aside>

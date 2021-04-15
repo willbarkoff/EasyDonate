@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>API Tester | Donorfide</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.2/build/styles/default.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.7.2/build/highlight.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <style>
+        * {
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .param {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .param * {
+            display: inline-block;
+            max-width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="section hero is-info is-bold">
+        <div class="hero-body">
+            <div class="container">
+                <h1 class="title">
+                    Donorfide API Tester
+                </h1>
+                <p class="subtitle">
+                    This page can be used to test the Donorfide API. It is enabled with the <code>--enable-tester</code>
+                    flag when Donorfide is run from the command line.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-half">
+                    <p class="title">Request</p>
+                    <form class="form">
+                        <div class="field">
+                            <label class="label">HTTP Method</label>
+                            <div class="control">
+                                <label class="radio">
+                                    <input type="radio" class="radio-button" name="method" value="GET" required>
+                                    <code>GET</code>
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" class="radio-button" name="method" value="POST" required>
+                                    <code>POST</code>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Request path</label>
+                            <div class="field has-addons">
+                                <p class="control">
+                                    <a class="button is-static">
+                                        /api/
+                                    </a>
+                                </p>
+                                <div class="control is-expanded">
+                                    <input type="text" id="path" class="input" placeholder="auth/me" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Parameters</label>
+                            <ul id="params"></ul>
+                            <a id="addParam" class="button">Add parameter</a>
+                        </div>
+
+                        <input class="button is-primary" type="submit" value="Submit">
+                    </form>
+                </div>
+                <div class="column is-half">
+                    <p class="title">Response</p>
+                    <span id="dot"><i class="fas fa-circle"></i>&nbsp;</span>
+                    <span id="code"></span>
+                    <pre><code id="response"></code></pre>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let addParam = $("#addParam")
+            let params = $("#params")
+            addParam.click(() => {
+                let param = $("<li class=\"param\"></li>")
+                let key = $("<input class=\"input is-small key\"  placeholder=\"key\">")
+                let value = $("<input class=\"input is-small value\" placeholder=\"value\">")
+                let remove = $("<a class=\"button is-danger is-small\">-</a>")
+                remove.click(() => {
+                    param.remove()
+                })
+                param.append(key)
+                param.append(value)
+                param.append(remove)
+
+                params.append(param)
+            })
+
+            $(".form").submit((ev) => {
+                let parameters = {}
+                let method = $(".radio-button:checked").val()
+                let path = $("#path").val();
+
+                $(".param").each(function () {
+                    parameters[$(this).children(".key").val()] = $(this).children(".value").val();
+                });
+
+                console.log(method)
+                console.log(parameters)
+
+                let resp = $.ajax("/api/" + path, {
+                    method: method,
+                    data: parameters,
+                    complete: (xhr, status) => {
+                        let dot = $("#dot")
+
+                        if (xhr.status === 200) {
+                            dot.removeClass("has-text-danger")
+                            dot.addClass("has-text-success")
+                        } else {
+                            dot.removeClass("has-text-success")
+                            dot.addClass("has-text-danger")
+                        }
+                        $("#code").text(xhr.status + " " + xhr.statusText);
+                        try {
+                            $("#response").text(JSON.stringify(JSON.parse(xhr.responseText), null, '\t'));
+                        } catch (e) {
+                            // malformed JSON?
+                            $("#response").text(xhr.responseText);
+                        }
+                    }
+                })
+
+                ev.preventDefault();
+            })
+        </script>
+    </section>
+</body>
+
+</html>

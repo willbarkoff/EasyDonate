@@ -1,0 +1,68 @@
+---
+layout: docs
+title: Responsible disclosure
+subtitle: Report a security vunerability in Donorfide
+---
+
+Donorfide takes the security of our organizations and donors very seriously. We offer a responsible disclosure policy to allow for the confidential reporting of security issues to protect our users.
+
+If you discover a security issue or vulnerability in Donorfide, please reach out to us at [hey@donorfide.org](mailto:hey@donorfide.org). Include the words `[Security Issue]` in the subject line of your email. We guarantee a response within 72 hours to all security-related emailed with the words `[Security Issue]` in the subject line.
+
+Please **do not** open an issue on GitHub for security issues.
+
+You may also encrypt the message with our PGP key, which can be downloaded [here](/assets/pgp.asc), and is listed below.
+
+```gpg
+-----BEGIN PGP PUBLIC KEY BLOCK-----
+
+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
+IyxY8/U=
+=+m7s
+-----END PGP PUBLIC KEY BLOCK-----
+```

@@ -11,7 +11,7 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/willbarkoff/donorfide/donorfide/database"
-	"github.com/willbarkoff/donorfide/donorfide/errors"
+	"github.com/willbarkoff/donorfide/donorfide/logging"
 	"github.com/willbarkoff/donorfide/donorfide/util"
 	"golang.org/x/crypto/bcrypt"
 
@@ -45,17 +45,17 @@ func Setup(port int, database *gorm.DB) {
 	db = database
 	setupCode, err = util.GenerateRandomString(24)
 	if err != nil {
-		errors.Fatal(err)
+		logging.Fatal(err)
 	}
 
-	errors.Logger.Info().Int("Port", port).Msg("Starting setup server")
-	errors.Logger.Info().Msg("")
-	errors.Logger.Info().Msg("==== USE THIS CODE FOR SETUP ====")
-	errors.Logger.Info().Msg("")
-	errors.Logger.Info().Msg(setupCode)
-	errors.Logger.Info().Msg("")
-	errors.Logger.Info().Msg("====      END SETUP CODE     ====")
-	errors.Logger.Info().Msg("")
+	logging.Logger.Info().Int("Port", port).Msg("Starting setup server")
+	logging.Logger.Info().Msg("")
+	logging.Logger.Info().Msg("==== USE THIS CODE FOR SETUP ====")
+	logging.Logger.Info().Msg("")
+	logging.Logger.Info().Msg(setupCode)
+	logging.Logger.Info().Msg("")
+	logging.Logger.Info().Msg("====      END SETUP CODE     ====")
+	logging.Logger.Info().Msg("")
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", index).Methods("GET")
@@ -65,7 +65,7 @@ func Setup(port int, database *gorm.DB) {
 	srv.Addr = ":" + strconv.Itoa(port)
 
 	if err := srv.ListenAndServe(); err != http.ErrServerClosed {
-		errors.Fatal(err)
+		logging.Fatal(err)
 	}
 }
 
@@ -88,6 +88,7 @@ func setup(w http.ResponseWriter, r *http.Request) {
 	orgPhone := r.FormValue("org-phone")
 	orgEmail := r.FormValue("org-email")
 	telemetryOptOut := r.FormValue("telemetry-opt-out")
+	donationPage := r.FormValue("donation-page")
 	adminFName := r.FormValue("admin-fname")
 	adminLName := r.FormValue("admin-lname")
 	adminEmail := r.FormValue("admin-email")
@@ -149,7 +150,11 @@ func setup(w http.ResponseWriter, r *http.Request) {
 		pageErrors = append(pageErrors, "admin passwords do not match")
 	}
 
-	errors.Logger.Debug().Str("telemetry", telemetryOptOut)
+	if donationPage == "" {
+		pageErrors = append(pageErrors, "donation page must not be blank")
+	}
+
+	logging.Logger.Debug().Str("telemetry", telemetryOptOut)
 
 	HasErrors := len(pageErrors) > 0
 
@@ -167,31 +172,35 @@ func setup(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db.Transaction(func(tx *gorm.DB) error {
-		if err := tx.Create(&database.Prefs{Key: "stripePK", Value: publishableKey}).Error; err != nil {
+		if err := tx.Create(&database.Pref{Key: "stripePK", Value: publishableKey}).Error; err != nil {
 			return err
 		}
 
-		if err := tx.Create(&database.Prefs{Key: "stripeSK", Value: secretKey}).Error; err != nil {
+		if err := tx.Create(&database.Pref{Key: "stripeSK", Value: secretKey}).Error; err != nil {
 			return err
 		}
 
-		if err := tx.Create(&database.Prefs{Key: "orgName", Value: orgName}).Error; err != nil {
+		if err := tx.Create(&database.Pref{Key: "orgName", Value: orgName}).Error; err != nil {
 			return err
 		}
 
-		if err := tx.Create(&database.Prefs{Key: "orgSite", Value: orgSite}).Error; err != nil {
+		if err := tx.Create(&database.Pref{Key: "orgSite", Value: orgSite}).Error; err != nil {
 			return err
 		}
 
-		if err := tx.Create(&database.Prefs{Key: "orgPhone", Value: orgPhone}).Error; err != nil {
+		if err := tx.Create(&database.Pref{Key: "orgPhone", Value: orgPhone}).Error; err != nil {
 			return err
 		}
 
-		if err := tx.Create(&database.Prefs{Key: "orgEmail", Value: orgEmail}).Error; err != nil {
+		if err := tx.Create(&database.Pref{Key: "orgEmail", Value: orgEmail}).Error; err != nil {
 			return err
 		}
 
-		if err := tx.Create(&database.Prefs{Key: "telemetryOptOut", Value: telemetryOptOut}).Error; err != nil {
+		if err := tx.Create(&database.Pref{Key: "telemetryOptOut", Value: telemetryOptOut}).Error; err != nil {
+			return err
+		}
+
+		if err := tx.Create(&database.Pref{Key: "donationPage", Value: donationPage}).Error; err != nil {
 			return err
 		}
 
@@ -200,7 +209,7 @@ func setup(w http.ResponseWriter, r *http.Request) {
 			return err
 		}
 
-		if err := tx.Create(&database.Users{
+		if err := tx.Create(&database.User{
 			FirstName: adminFName,
 			LastName:  adminLName,
 			Email:     adminEmail,
@@ -220,12 +229,12 @@ func setup(w http.ResponseWriter, r *http.Request) {
 		Time:   time.Now().Format(time.RFC1123), // use RFC1123 because it's easy to read for non-technical audiences
 	})
 
-	errors.Logger.Info().Msg("Setup is complete!")
+	logging.Logger.Info().Msg("Setup is complete!")
 
 	go func() {
 		err := srv.Shutdown(context.Background())
 		if err != nil {
-			errors.FatalMsg(err, "Setup has been completed, but the setup server couldn't shut down. This is usually okay, and the process will terminate; however, upon restart of the process, Donorfide will be set up.")
+			logging.FatalMsg(err, "Setup has been completed, but the setup server couldn't shut down. This is usually okay, and the process will terminate; however, upon restart of the process, Donorfide will be set up.")
 		}
 	}()
 }

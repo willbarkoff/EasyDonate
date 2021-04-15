@@ -29,6 +29,8 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 sass:
   style: compressed
 
+highlighter: rouge
+
 banner:
   show: true
   type: danger
