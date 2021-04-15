@@ -26,6 +26,7 @@ var statusUnauthorized = map[string]interface{}{"status": "error", "error": "una
 var statusLoggedOut = map[string]interface{}{"status": "error", "error": "logged_out"}
 var statusInvalidLogin = map[string]interface{}{"status": "error", "error": "invalid_login"}
 var statusUserMissing = map[string]interface{}{"status": "error", "error": "user_missing"}
+var statusNotFound = map[string]interface{}{"status": "error", "error": "not_found"}
 
 func okWithData(data interface{}) map[string]interface{} {
 	return map[string]interface{}{"status": "ok", "data": data}
@@ -65,6 +66,10 @@ func SetupAPI(r *mux.Router, database *gorm.DB, f util.Flags) {
 	setupAuthEndpoints(r.PathPrefix("/auth").Subrouter())
 	setupDonationEndpoints(r.PathPrefix("/donate").Subrouter())
 	setupContextEndpoints(r.PathPrefix("/context").Subrouter())
+
+	r.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		writeJSON(w, http.StatusNotFound, statusNotFound)
+	})
 }
 
 func paramsOk(w http.ResponseWriter, r *http.Request, params ...string) bool {

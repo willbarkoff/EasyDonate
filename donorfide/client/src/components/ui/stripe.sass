@@ -1,0 +1,25 @@
+.StripeElement
+  box-shadow: inset 0 .0625em .125em rgba(10, 10, 10, .05)
+  max-width: 100%
+  width: 100%
+  background-color: #fff
+  border-radius: 4px
+  border: 1px solid #dbdbdb
+  color: #363636
+  padding: 10px
+  margin-top: 10px
+  margin-bottom: 10px
+  cursor: text
+
+.StripeElement:hover:not(.StripeElement--focus)
+  border-color: #b5b5b5
+
+.StripeElement:focus, .StripeElement--focus
+  border-color: #3273dc
+  box-shadow: 0 0 0 .125em rgba(50, 115, 220, .25)
+
+.StripeElement--invalid
+  border-color: #f14668
+
+.StripeElement--invalid.StripeElement--focus
+  box-shadow: 0 0 0 .125em rgba(241, 70, 104, .25)
