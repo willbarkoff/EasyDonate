@@ -3,13 +3,14 @@ package main
 import (
 	"context"
 	"embed"
-	"github.com/willbarkoff/donorfide/donorfide/api"
-	"github.com/willbarkoff/donorfide/donorfide/util"
 	"io/fs"
 	"net/http"
 	"os"
 	"os/signal"
 	"strconv"
+
+	"github.com/willbarkoff/donorfide/donorfide/api"
+	"github.com/willbarkoff/donorfide/donorfide/util"
 
 	"github.com/joho/godotenv"
 	"github.com/willbarkoff/donorfide/donorfide/database"
@@ -27,9 +28,9 @@ func main() {
 	logging.Logger.Info().Msg("Starting Donorfide")
 
 	port := 8989
-	if os.Getenv("DONORFIDE_PORT") != "" {
+	if os.Getenv("PORT") != "" {
 		var err error
-		port, err = strconv.Atoi(os.Getenv("DONORFIDE_PORT"))
+		port, err = strconv.Atoi(os.Getenv("PORT"))
 		if err != nil {
 			logging.FatalMsg(err, "The enviornment variable DONORFIDE_PORT is invalid. Read more at the Donorfide documentation.")
 		}
