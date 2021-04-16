@@ -12,7 +12,7 @@ interface payNowButtonProps {
 	onSuccess(): void
 }
 
-export default function PayNowButton(props: payNowButtonProps): JSX.Element {
+export default function PayNowButton(props: payNowButtonProps): JSX.Element | null {
 	const stripe = useStripe();
 	const [paymentRequest, setPaymentRequest] = React.useState(null as PaymentRequest | null);
 
