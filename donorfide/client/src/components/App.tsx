@@ -13,6 +13,12 @@ import DonatePage from "./pages/donate/DonatePage";
 import DonateCreditInfo from "./pages/donate/DonateCreditInfo";
 
 import "./ui/stripe.sass"
+import {Elements} from "@stripe/react-stripe-js";
+import DonationSuccess from "./pages/donate/DonationSuccess";
+import AdminPage from "./pages/admin/AdminPage";
+import LoginPage from "./pages/LoginPage";
+import RequireLogin from "./pages/RequireLogin";
+import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
 
 function useOrgContext() {
 	const [isLoading, setIsLoading] = React.useState(true);
@@ -22,6 +28,7 @@ function useOrgContext() {
 		async function fetchContext() {
 			let data = await api.GET<api.contextOrg>("context/org")
 			await setContextData(data)
+			document.title = "Donate | " + data.name
 			await stripe.prepareStripe(data.stripe_pk)
 			setIsLoading(false)
 		}
@@ -43,13 +50,19 @@ export default function App() {
 
 	return <OrgContext.Provider value={contextData as api.contextOrg}>
 		<Router>
-			<Nav/>
-			<Switch>
-				<Route path="/" exact><DonatePage/></Route>
-				<Route path="/donate/:amount" exact><DonateCreditInfo/></Route>
-				<Route path="/"><NotFound/></Route>
-			</Switch>
-			<Footer/>
+			<Elements stripe={stripe.stripe}>
+				<Nav/>
+				<Switch>
+					<Route path="/" exact><DonatePage/></Route>
+					<Route path="/donation/success"><DonationSuccess/></Route>
+					<Route path="/donate/:amount" exact><DonateCreditInfo/></Route>
+					<Route path="/login"><LoginPage/></Route>
+					<Route path="/admin/settings"><RequireLogin component={me => <AdminSettingsPage/>}/></Route>
+					<Route path="/admin"><RequireLogin component={me => <AdminPage me={me}/>}/></Route>
+					<Route path="/"><NotFound/></Route>
+				</Switch>
+				<Footer/>
+			</Elements>
 		</Router>
 	</OrgContext.Provider>
 }

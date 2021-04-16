@@ -23,11 +23,7 @@ type paymentIntentResponse struct {
 var webhookEndpoint *stripe.WebhookEndpoint
 
 func setupDonationEndpoints(r *mux.Router) {
-	if flags.DisableStripeWebhook {
-		logging.Logger.Info().Msg("Stripe webhook setup disabled. Skipping webhook creation...")
-	} else {
-		setupStripe()
-	}
+	setupStripe()
 
 	r.HandleFunc("/generatePaymentToken", generatePaymentToken).Methods(POST)
 	r.HandleFunc("/stripe/webhook", stripeWebhook).Methods(POST)
@@ -42,6 +38,10 @@ func setupStripe() {
 		Level: stripe.LevelWarn,
 	}
 
+	if flags.DisableStripeWebhook {
+		logging.Logger.Info().Msg("Stripe webhook setup disabled. Skipping webhook creation...")
+		return
+	}
 	webhookParams := &stripe.WebhookEndpointParams{
 		EnabledEvents: []*string{
 			stripe.String("charge.succeeded"),
@@ -84,8 +84,9 @@ func generatePaymentToken(w http.ResponseWriter, r *http.Request) {
 	}
 
 	params := &stripe.PaymentIntentParams{
-		Amount:   stripe.Int64(int64(amount)),
-		Currency: stripe.String(string(stripe.CurrencyUSD)),
+		Amount:             stripe.Int64(int64(amount)),
+		Currency:           stripe.String(string(stripe.CurrencyUSD)),
+		PaymentMethodTypes: stripe.StringSlice([]string{"card"}),
 	}
 
 	pi, err := paymentintent.New(params)
@@ -95,10 +96,10 @@ func generatePaymentToken(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	writeJSON(w, http.StatusOK, paymentIntentResponse{
+	writeJSON(w, http.StatusOK, okWithData(paymentIntentResponse{
 		Status:       "ok",
 		ClientSecret: pi.ClientSecret,
-	})
+	}))
 }
 
 func stripeWebhook(w http.ResponseWriter, r *http.Request) {
@@ -182,6 +183,6 @@ func listDonations(w http.ResponseWriter, r *http.Request) {
 
 	var donations []database.Donation
 	db.Find(&donations)
-	
+
 	writeJSON(w, http.StatusOK, okWithData(donations))
 }

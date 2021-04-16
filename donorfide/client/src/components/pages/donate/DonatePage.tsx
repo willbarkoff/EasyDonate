@@ -13,6 +13,7 @@ export default function DonatePage() {
 			<Hero style="primary" title={org.donate_page_title || "Donate"}
 				  subtitle={org.donate_page_subtitle || `Contribute to ${org.name}`} center/>
 			<section className="section">
+				{org.home_page_text && <p className="block has-text-centered">{org.home_page_text}</p>}
 				<div className="container has-text-centered">
 					<AmountField onChange={setAmount} value={amount}/>
 					<Link to={`/donate/${amount}`} className="button is-primary m-5">Continue</Link>

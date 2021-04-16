@@ -214,7 +214,7 @@ func setup(w http.ResponseWriter, r *http.Request) {
 			LastName:  adminLName,
 			Email:     adminEmail,
 			Password:  string(hash),
-			Level:     1,
+			Level:     2,
 		}).Error; err != nil {
 			return err
 		}

@@ -34,7 +34,7 @@ func initDB(databaseType, DSN string) {
 		if err != nil {
 			logging.FatalMsg(err, databaseError)
 		}
-	} else if databaseType == "postgres" {
+	} else if databaseType == "mssql" {
 		db, err = gorm.Open(sqlserver.Open(DSN), gormConfig)
 		if err != nil {
 			logging.FatalMsg(err, databaseError)

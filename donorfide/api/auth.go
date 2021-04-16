@@ -51,7 +51,7 @@ func me(w http.ResponseWriter, r *http.Request) {
 	user := database.User{}
 	db.First(&user, id)
 
-	writeJSON(w, http.StatusOK, user)
+	writeJSON(w, http.StatusOK, okWithData(user))
 }
 
 func login(w http.ResponseWriter, r *http.Request) {

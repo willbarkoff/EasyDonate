@@ -66,6 +66,7 @@ func SetupAPI(r *mux.Router, database *gorm.DB, f util.Flags) {
 	setupAuthEndpoints(r.PathPrefix("/auth").Subrouter())
 	setupDonationEndpoints(r.PathPrefix("/donate").Subrouter())
 	setupContextEndpoints(r.PathPrefix("/context").Subrouter())
+	setupAdminEndpoints(r.PathPrefix("/admin").Subrouter())
 
 	r.PathPrefix("/").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusNotFound, statusNotFound)
