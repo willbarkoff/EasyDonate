@@ -80,7 +80,7 @@ export default function DonateCreditInfo(): JSX.Element {
 				return;
 		}
 
-		if (payload.error) {
+		if (payload?.error) {
 			setError(payload.error.message);
 			setIsLoading(false);
 			return;
