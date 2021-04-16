@@ -1,67 +1,68 @@
 import * as React from "react";
 import Page from "../Page";
 import Hero from "../../ui/Hero";
-import {OrgContext} from "../../App";
-import {Link, Redirect, useParams} from "react-router-dom";
+import { OrgContext } from "../../App";
+import { Link, Redirect, useParams } from "react-router-dom";
 
-import "./DonateCreditInfo.sass"
+import "./DonateCreditInfo.sass";
 import PaymentElements from "../../ui/PaymentElements";
-import {stripe} from "../../../stripe";
-import * as Stripe from "@stripe/react-stripe-js"
-import {CardElement} from "@stripe/react-stripe-js"
-import * as api from "../../../api"
+import { stripe } from "../../../stripe";
+import * as Stripe from "@stripe/react-stripe-js";
+import { CardElement } from "@stripe/react-stripe-js";
+import * as api from "../../../api";
 import PayNowButton from "../../ui/PayNowButton";
-import {faCircleNotch} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 interface routeParams {
 	amount: string
 }
 
-export default function DonateCreditInfo() {
-	const {amount} = useParams<routeParams>()
-	let amountInt = parseInt(amount, 10)
+export default function DonateCreditInfo(): JSX.Element {
+	const { amount } = useParams<routeParams>();
+	const amountInt = parseInt(amount, 10);
 
-	const [paymentMethod, setPaymentMethod] = React.useState("card")
-	const [isLoading, setIsLoading] = React.useState(false)
-	const [isLoadingInitial, setIsLoadingInitial] = React.useState(true)
-	const [clientSecret, setClientSecret] = React.useState("")
-	const [error, setError] = React.useState(null as string | null | undefined)
-	const [email, setEmail] = React.useState("")
-	const [name, setName] = React.useState("")
-	const [success, setSuccess] = React.useState(false)
-	const elements = Stripe.useElements()
+	const [paymentMethod, setPaymentMethod] = React.useState("card");
+	const [isLoading, setIsLoading] = React.useState(false);
+	const [isLoadingInitial, setIsLoadingInitial] = React.useState(true);
+	const [clientSecret, setClientSecret] = React.useState("");
+	const [error, setError] = React.useState(null as string | null | undefined);
+	const [email, setEmail] = React.useState("");
+	const [name, setName] = React.useState("");
+	const [success, setSuccess] = React.useState(false);
+	const elements = Stripe.useElements();
 
-	const onSuccess = () => setSuccess(true)
+	const onSuccess = () => setSuccess(true);
 
 	React.useEffect(() => {
 		(async () => {
-			let response = await api.POST<api.paymentIntentResponse>("donate/generatePaymentToken", {amount})
-			setClientSecret(response.client_secret)
-			setIsLoadingInitial(false)
+			const response = await api.POST<api.paymentIntentResponse>("donate/generatePaymentToken", { amount });
+			setClientSecret(response.client_secret);
+			setIsLoadingInitial(false);
 		})();
-	}, []);
+	}, [amount]);
 
 	async function processPayment() {
-		setIsLoading(true)
+		setIsLoading(true);
 
 		if (email == "") {
-			setIsLoading(false)
-			setError("You must enter an email address.")
-			return
+			setIsLoading(false);
+			setError("You must enter an email address.");
+			return;
 		}
 
 		let payload;
 
 		switch (paymentMethod) {
 			case "card":
-				payload = await stripe!.confirmCardPayment(clientSecret, {
+				payload = await stripe?.confirmCardPayment(clientSecret, {
 					payment_method: {
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						card: elements!.getElement(CardElement)!
 					},
 					receipt_email: email
 				});
-				break
+				break;
 			// case "iban":
 			// 	payload = await stripe!.confirmSepaDebitPayment(clientSecret, {
 			// 		payment_method: {
@@ -76,24 +77,24 @@ export default function DonateCreditInfo() {
 			default:
 				setError("That payment method currently isn't supported.");
 				setIsLoading(false);
-				return
+				return;
 		}
 
 		if (payload.error) {
 			setError(payload.error.message);
 			setIsLoading(false);
-			return
+			return;
 		}
 
-		onSuccess()
+		onSuccess();
 	}
 
 	return <OrgContext.Consumer>
 		{(org) => {
 			const prOpts = {
-				country: 'US',
-				currency: 'usd',
-				total: {label: org.name, amount: amountInt},
+				country: "US",
+				currency: "usd",
+				total: { label: org.name, amount: amountInt },
 				requestPayerName: true,
 				requestPayerEmail: true,
 			};
@@ -101,14 +102,14 @@ export default function DonateCreditInfo() {
 			if (success) {
 				if (org.donation_success_redirect) {
 					// so long!
-					document.location.href = org.donation_success_redirect
+					document.location.href = org.donation_success_redirect;
 				}
-				return <Redirect to="/donation/success"/>
+				return <Redirect to="/donation/success" />;
 			}
 
 			return <Page>
 				<Hero style="primary" title={org.donate_page_title || "Donate"}
-					  subtitle={org.donate_page_subtitle || `Contribute to ${org.name}`} center/>
+					subtitle={org.donate_page_subtitle || `Contribute to ${org.name}`} center />
 				<section className="section">
 					<div className="container has-text-centered">
 						{error && <div className="notification is-danger is-light">{error}</div>}
@@ -120,29 +121,29 @@ export default function DonateCreditInfo() {
 						{
 							isLoadingInitial ?
 								<p className="block">
-									<FontAwesomeIcon icon={faCircleNotch} spin size="3x"/>
+									<FontAwesomeIcon icon={faCircleNotch} spin size="3x" />
 								</p>
 								: <div className="checkout">
 									<div className="field">
 										<PayNowButton paymentRequest={prOpts} clientSecret={clientSecret}
-													  onError={(e) => setError(e.message)} onSuccess={onSuccess}/>
+											onError={(e) => setError(e.message)} onSuccess={onSuccess} />
 										<label className="label">Name</label>
 										<div className="control">
 											<input type="email" value={name} onChange={(e) => setName(e.target.value)}
-												   className="input" placeholder="Jane Appleseed" disabled={isLoading}/>
+												className="input" placeholder="Jane Appleseed" disabled={isLoading} />
 										</div>
 									</div>
 									<div className="field">
 										<label className="label">Email</label>
 										<div className="control">
 											<input type="email" value={email} onChange={(e) => setEmail(e.target.value)}
-												   className="input" placeholder="jane@appleseeds.com"
-												   disabled={isLoading}/>
+												className="input" placeholder="jane@appleseeds.com"
+												disabled={isLoading} />
 										</div>
 									</div>
 									<PaymentElements paymentMethod={paymentMethod} setPaymentMethod={setPaymentMethod}
-													 disabled={isLoading}/>
-									<hr/>
+										disabled={isLoading} />
+									<hr />
 									<div className="buttons is-centered">
 										{isLoading ?
 											// we need to make a fake button because for some stupid reason you can't disable a link
@@ -150,8 +151,8 @@ export default function DonateCreditInfo() {
 											<Link to="/" className="button">Back</Link>
 										}
 										<button onClick={processPayment}
-												className={`button is-primary ${isLoading ? "is-loading" : ""}`}
-												disabled={isLoading}>
+											className={`button is-primary ${isLoading ? "is-loading" : ""}`}
+											disabled={isLoading}>
 											Donate ${(amountInt / 100).toFixed(2)}
 										</button>
 									</div>
@@ -159,7 +160,7 @@ export default function DonateCreditInfo() {
 						}
 					</div>
 				</section>
-			</Page>
+			</Page>;
 		}}
-	</OrgContext.Consumer>
+	</OrgContext.Consumer>;
 }

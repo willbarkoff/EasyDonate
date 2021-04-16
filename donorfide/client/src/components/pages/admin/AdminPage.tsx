@@ -1,17 +1,17 @@
 import * as React from "react";
 import Hero from "../../ui/Hero";
 import Page from "../Page";
-import * as api from '../../../api'
-import {Link} from "react-router-dom";
+import * as api from "../../../api";
+import { Link } from "react-router-dom";
 
 interface adminPageProps {
 	me: api.me
 }
 
-export default function AdminPage(props: adminPageProps) {
+export default function AdminPage(props: adminPageProps): JSX.Element {
 
 	return <Page>
-		<Hero title="Administration" subtitle="Manage donorfide" center/>
+		<Hero title="Administration" subtitle="Manage donorfide" center />
 		<section className="section">
 			<div className="container">
 				<p className="block">Hello, <strong>{props.me.first_name}</strong>.</p>
@@ -30,5 +30,5 @@ export default function AdminPage(props: adminPageProps) {
 				}
 			</div>
 		</section>
-	</Page>
+	</Page>;
 }

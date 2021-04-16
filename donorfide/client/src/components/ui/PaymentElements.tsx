@@ -1,10 +1,10 @@
-import {CardElement, IbanElement, IdealBankElement} from "@stripe/react-stripe-js";
+import { CardElement, IbanElement, IdealBankElement } from "@stripe/react-stripe-js";
 import * as React from "react";
 
-let style = {
+const style = {
 	base: {
 		color: "#363636",
-		fontFamily: 'BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif',
+		fontFamily: "BlinkMacSystemFont,-apple-system,\"Segoe UI\",Roboto,Oxygen,Ubuntu,Cantarell,\"Fira Sans\",\"Droid Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif",
 		fontSmoothing: "antialiased",
 		fontSize: "16px",
 		"::placeholder": {
@@ -12,29 +12,28 @@ let style = {
 		}
 	},
 	invalid: {
-		fontFamily: 'BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif',
+		fontFamily: "BlinkMacSystemFont,-apple-system,\"Segoe UI\",Roboto,Oxygen,Ubuntu,Cantarell,\"Fira Sans\",\"Droid Sans\",\"Helvetica Neue\",Helvetica,Arial,sans-serif",
 	}
-}
+};
 
 interface paymentElementProps {
 	paymentMethod: string
 	disabled: boolean
-
 	setPaymentMethod(newMethod: string): void
 }
 
 
-export default function PaymentElement(props: paymentElementProps) {
+export default function PaymentElement(props: paymentElementProps): JSX.Element {
 	function renderPaymentElement() {
 		switch (props.paymentMethod) {
 			case "card":
-				return <CardElement options={{style, disabled: props.disabled}}/>
+				return <CardElement options={{ style, disabled: props.disabled }} />;
 			case "iban":
-				return <IbanElement options={{style, supportedCountries: ["SEPA"], disabled: props.disabled}}/>
+				return <IbanElement options={{ style, supportedCountries: ["SEPA"], disabled: props.disabled }} />;
 			case "ideal":
-				return <IdealBankElement options={{style, disabled: props.disabled}}/>
+				return <IdealBankElement options={{ style, disabled: props.disabled }} />;
 			default:
-				return <p>Please choose a payment method above</p>
+				return <p>Please choose a payment method above</p>;
 		}
 	}
 

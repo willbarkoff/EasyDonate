@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from "react";
 
 interface heroProps {
 	title?: string
@@ -7,7 +7,7 @@ interface heroProps {
 	center?: boolean
 }
 
-export default function Hero(props: heroProps) {
+export default function Hero(props: heroProps): JSX.Element {
 	return <div>
 		<section className={`hero is-${props.style || "info"} is-bold`}>
 			<div className="hero-body">
@@ -17,5 +17,5 @@ export default function Hero(props: heroProps) {
 				</div>
 			</div>
 		</section>
-	</div>
+	</div>;
 }
