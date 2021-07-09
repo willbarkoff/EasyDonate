@@ -40,5 +40,3 @@ banner:
   type: info
   message: >-
     This is the documentation for Donorfide 3.0, which is in alpha.
-    The latest stable version is **EasyDonate 2.0**, which can be found on the `master` branch of
-    this repository, or on GitHub [here](https://github.com/willbarkoff/donorfide/tree/master).
