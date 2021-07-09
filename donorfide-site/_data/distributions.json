@@ -1,0 +1,158 @@
+[
+	{
+		"os": "macOS",
+		"arch": "amd64",
+		"runtime": "darwin/amd64",
+		"file": "donorfide_darwin_amd64"
+	},
+	{
+		"os": "macOS",
+		"arch": "arm64",
+		"runtime": "darwin/arm64",
+		"file": "donorfide_darwin_arm64"
+	},
+	{
+		"os": "FreeBSD",
+		"arch": "386",
+		"runtime": "freebsd/386",
+		"file": "donorfide_freebsd_386"
+	},
+	{
+		"os": "FreeBSD",
+		"arch": "amd64",
+		"runtime": "freebsd/amd64",
+		"file": "donorfide_freebsd_amd64"
+	},
+	{
+		"os": "FreeBSD",
+		"arch": "arm",
+		"runtime": "freebsd/arm",
+		"file": "donorfide_freebsd_arm"
+	},
+	{
+		"os": "NetBSD",
+		"arch": "386",
+		"runtime": "netbsd/386",
+		"file": "donorfide_netbsd_386"
+	},
+	{
+		"os": "NetBSD",
+		"arch": "amd64",
+		"runtime": "netbsd/amd64",
+		"file": "donorfide_netbsd_amd64"
+	},
+	{
+		"os": "NetBSD",
+		"arch": "arm",
+		"runtime": "netbsd/arm",
+		"file": "donorfide_netbsd_arm"
+	},
+	{
+		"os": "OpenBSD",
+		"arch": "386",
+		"runtime": "openbsd/386",
+		"file": "donorfide_openbsd_386"
+	},
+	{
+		"os": "OpenBSD",
+		"arch": "amd64",
+		"runtime": "openbsd/amd64",
+		"file": "donorfide_openbsd_amd64"
+	},
+	{
+		"os": "OpenBSD",
+		"arch": "arm",
+		"runtime": "openbsd/arm",
+		"file": "donorfide_openbsd_arm"
+	},
+	{
+		"os": "Linux",
+		"arch": "386",
+		"runtime": "linux/386",
+		"file": "donorfide_linux_386"
+	},
+	{
+		"os": "Linux",
+		"arch": "amd64",
+		"runtime": "linux/amd64",
+		"file": "donorfide_linux_amd64"
+	},
+	{
+		"os": "Linux",
+		"arch": "arm64",
+		"runtime": "linux/arm64",
+		"file": "donorfide_linux_arm64"
+	},
+	{
+		"os": "Linux",
+		"arch": "ppc64",
+		"runtime": "linux/ppc64",
+		"file": "donorfide_linux_ppc64"
+	},
+	{
+		"os": "Linux",
+		"arch": "ppc64le",
+		"runtime": "linux/ppc64le",
+		"file": "donorfide_linux_ppc64le"
+	},
+	{
+		"os": "Linux",
+		"arch": "mips",
+		"runtime": "linux/mips",
+		"file": "donorfide_linux_mips"
+	},
+	{
+		"os": "Linux",
+		"arch": "mipsle",
+		"runtime": "linux/mipsle",
+		"file": "donorfide_linux_mipsle"
+	},
+	{
+		"os": "Linux",
+		"arch": "mips64",
+		"runtime": "linux/mips64",
+		"file": "donorfide_linux_mips64"
+	},
+	{
+		"os": "Linux",
+		"arch": "mips64le",
+		"runtime": "linux/mips64le",
+		"file": "donorfide_linux_mips64le"
+	},
+	{
+		"os": "Windows",
+		"arch": "386",
+		"runtime": "windows/386",
+		"file": "donorfide_windows_386.exe"
+	},
+	{
+		"os": "Windows",
+		"arch": "amd64",
+		"runtime": "windows/amd64",
+		"file": "donorfide_windows_amd64.exe"
+	},
+	{
+		"os": "Solaris",
+		"arch": "amd64",
+		"runtime": "solaris/amd64",
+		"file": "donorfide_solaris_amd64"
+	},
+	{
+		"os": "Plan9",
+		"arch": "386",
+		"runtime": "plan9/386",
+		"file": "donorfide_plan9_386"
+	},
+	{
+		"os": "Plan9",
+		"arch": "amd64",
+		"runtime": "plan9/amd64",
+		"file": "donorfide_plan9_amd64"
+	},
+	{
+		"os": "Dragonfly",
+		"arch": "amd64",
+		"runtime": "dragonfly/amd64",
+		"file": "donorfide_dragonfly_amd64"
+	}
+]

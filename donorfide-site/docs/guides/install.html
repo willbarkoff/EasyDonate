@@ -1,0 +1,73 @@
+---
+layout: docs
+title: Install
+subtitle: Install Donorfide for your platform
+---
+
+<p class="title has-text-centered">Download Donorfide</p>
+<p class="subtitle has-text-centered">{{site.version}}</p>
+
+{% if site.prerelease %}
+<div class="notification is-danger is-light">
+	<strong>This is pre-release software. Stability is not guaranteed.</strong> In addition, API endpoints may break or
+	change. For more information, see the
+	<a href="https://semver.org/#semantic-versioning-specification-semver">semantic versioning specification</a>.
+</div>
+{% endif %}
+
+<div class="tile is-ancestor">
+	<div class="tile is-parent">
+		<a href="https://github.com/willbarkoff/donorfide/releases/download/{{site.version}}/donorfide_linux_amd64"
+			class="tile is-child box has-text-centered">
+			<h3>Linux AMD64</h3>
+			<p>64-bit Intel processers</p>
+		</a>
+	</div>
+	<div class="tile is-parent">
+		<a href="https://github.com/willbarkoff/donorfide/releases/download/{{site.version}}/donorfide_linux_arm"
+			class="tile is-child box has-text-centered">
+			<h3>Linux ARM64</h3>
+			<p>64-bit ARM processers</p>
+		</a>
+	</div>
+	<div class="tile is-parent">
+		<a href="https://github.com/willbarkoff/donorfide/releases/download/{{site.version}}/donorfide_windows_amd64.exe"
+			class="tile is-child box has-text-centered">
+			<h3>Windows AMD64</h3>
+			<p>64-bit Intel processors</p>
+		</a>
+	</div>
+	<div class="tile is-parent">
+		<a href="https://github.com/willbarkoff/donorfide/releases/download/{{site.version}}/donorfide_macos_amd64.exe"
+			class="tile is-child box has-text-centered">
+			<h3>MacOS AMD64</h3>
+			<p>64-bit Intel processors</p>
+		</a>
+	</div>
+</div>
+
+<h3>Other distributions</h3>
+<p>The only officially supported distributions are the ones above. <strong>These distributions do not meet the stability
+		guarantees that the above distributions do</strong>.</p>
+<table class="table is-hoverable is-fullwidth">
+	<thead>
+		<tr>
+			<th>Operating system</th>
+			<th>Architecture</th>
+			<th>Go Runtime</th>
+			<th>File</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for dist in site.data.distributions %}
+		<tr>
+			<td>{{dist.os}}</td>
+			<td>{{dist.arch}}</td>
+			<td><code>{{dist.runtime}}</code></td>
+			<td><a
+					href="https://github.com/willbarkoff/donorfide/releases/download/{{site.version}}/{{dist.file}}">{{dist.file}}</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
