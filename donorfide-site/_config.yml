@@ -31,7 +31,7 @@ sass:
 
 highlighter: rouge
 
-version: v3.0.0-alpha.1
+version: v3.0.0.alpha.1
 prerelease: true
 demo: https://demo.donorfide.org
 
