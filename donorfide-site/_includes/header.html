@@ -3,6 +3,19 @@
 		<a class="navbar-item" href="/">
 			<img src="/assets/img/logo.svg" height="28" class="pr-2">
 			<strong>Donorfide</strong>
+			<span class="navbar-item is-hidden-desktop">
+				<div class="tags">
+					<span class="tag">
+						{{site.version}}
+					</span>
+					{% if site.prerelease %}
+					<span class="tag is-danger is-light">
+						<i class="fas fa-exclamation-triangle"></i>
+						&nbsp; Pre-release!
+					</span>
+					{% endif %}
+				</div>
+			</span>
 		</a>
 
 		<a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -48,14 +61,13 @@
 
 		<div class="navbar-end">
 			<div class="navbar-item">
-				<span class="navbar-item">
+				<span class="navbar-item is-hidden-touch">
 					<div class="tags">
 						<span class="tag">
 							{{site.version}}
 						</span>
 						{% if site.prerelease %}
-						<span class="tag is-danger is-light has-tooltip-bottom"
-							data-tooltip="Stability is not guaranteed.">
+						<span class="tag is-danger is-light">
 							<i class="fas fa-exclamation-triangle"></i>
 							&nbsp; Pre-release!
 						</span>
