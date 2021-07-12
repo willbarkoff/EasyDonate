@@ -49,7 +49,18 @@
 		<div class="navbar-end">
 			<div class="navbar-item">
 				<span class="navbar-item">
-					{{site.version}}
+					<div class="tags">
+						<span class="tag">
+							{{site.version}}
+						</span>
+						{% if site.prerelease %}
+						<span class="tag is-danger is-light has-tooltip-bottom"
+							data-tooltip="Stability is not guaranteed.">
+							<i class="fas fa-exclamation-triangle"></i>
+							&nbsp; Pre-release!
+						</span>
+						{% endif %}
+					</div>
 				</span>
 				<div class="buttons">
 					<a class="button is-primary" href="/docs/guides/install.html">
