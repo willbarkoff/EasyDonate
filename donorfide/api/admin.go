@@ -1,11 +1,12 @@
 package api
 
 import (
+	"net/http"
+
 	"github.com/gorilla/mux"
 	"github.com/willbarkoff/donorfide/donorfide/database"
 	"github.com/willbarkoff/donorfide/donorfide/logging"
 	"gorm.io/gorm"
-	"net/http"
 )
 
 func setupAdminEndpoints(r *mux.Router) {
@@ -38,7 +39,7 @@ func updateSetting(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = db.Transaction(func(tx *gorm.DB) error {
-		tx.Delete(&database.Pref{}, "key = ?", r.FormValue("key"))
+		tx.Delete(&database.Pref{}, "`key` = ?", r.FormValue("key"))
 		if r.FormValue("value") != "" {
 			tx.Create(&database.Pref{
 				Key:   r.FormValue("key"),
