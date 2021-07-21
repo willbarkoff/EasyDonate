@@ -5,10 +5,10 @@ import "gorm.io/gorm"
 //GetPref returns the preference with the given string, or the empty string if it doesn't exist.
 func GetPref(db *gorm.DB, key string) string {
 	pref := Pref{}
-	tx := db.First(&pref, "`key` = ?", key)
-	if tx.Error != nil {
-		panic(tx.Error)
-	}
+	db.First(&pref, "`key` = ?", key)
+	// if tx.Error != nil {
+	// 	panic(tx.Error)
+	// }
 	return pref.Value
 }
 
