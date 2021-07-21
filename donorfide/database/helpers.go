@@ -6,9 +6,6 @@ import "gorm.io/gorm"
 func GetPref(db *gorm.DB, key string) string {
 	pref := Pref{}
 	db.First(&pref, "`key` = ?", key)
-	// if tx.Error != nil {
-	// 	panic(tx.Error)
-	// }
 	return pref.Value
 }
 
