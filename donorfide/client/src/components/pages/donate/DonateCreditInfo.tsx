@@ -58,9 +58,14 @@ export default function DonateCreditInfo(): JSX.Element {
 				payload = await stripe?.confirmCardPayment(clientSecret, {
 					payment_method: {
 						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-						card: elements!.getElement(CardElement)!
+						card: elements!.getElement(CardElement)!,
+						billing_details: {
+							name: name,
+							email: email
+						}
 					},
 					receipt_email: email
+
 				});
 				break;
 			// case "iban":
@@ -129,7 +134,7 @@ export default function DonateCreditInfo(): JSX.Element {
 											onError={(e) => setError(e.message)} onSuccess={onSuccess} />
 										<label className="label">Name</label>
 										<div className="control">
-											<input type="email" value={name} onChange={(e) => setName(e.target.value)}
+											<input type="text" value={name} onChange={(e) => setName(e.target.value)}
 												className="input" placeholder="Jane Appleseed" disabled={isLoading} />
 										</div>
 									</div>

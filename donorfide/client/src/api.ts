@@ -65,6 +65,7 @@ export async function POST<T>(url: string, params: Record<string, string>): Prom
 }
 
 export interface contextOrg {
+	receipt_text: string;
 	stripe_pk: string
 	name: string
 	site: string

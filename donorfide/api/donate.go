@@ -2,6 +2,11 @@ package api
 
 import (
 	"encoding/json"
+	"io/ioutil"
+	"net/http"
+	"os"
+	"strconv"
+
 	"github.com/gorilla/mux"
 	"github.com/stripe/stripe-go"
 	"github.com/stripe/stripe-go/paymentintent"
@@ -9,10 +14,6 @@ import (
 	"github.com/stripe/stripe-go/webhookendpoint"
 	"github.com/willbarkoff/donorfide/donorfide/database"
 	"github.com/willbarkoff/donorfide/donorfide/logging"
-	"io/ioutil"
-	"net/http"
-	"os"
-	"strconv"
 )
 
 type paymentIntentResponse struct {
@@ -87,6 +88,7 @@ func generatePaymentToken(w http.ResponseWriter, r *http.Request) {
 		Amount:             stripe.Int64(int64(amount)),
 		Currency:           stripe.String(string(stripe.CurrencyUSD)),
 		PaymentMethodTypes: stripe.StringSlice([]string{"card"}),
+		Description:        stripe.String(database.GetPref(db, "chargeDescription")),
 	}
 
 	pi, err := paymentintent.New(params)

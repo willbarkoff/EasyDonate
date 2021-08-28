@@ -15,7 +15,7 @@ export default function AdminSettingsPage(): JSX.Element {
 						<Link to="/admin" className="button">Back</Link>
 					</div>
 					<p className="block">This page allows you to change how Donorfide looks and behaves for your users.
-					Note
+						Note
 						that you may need to refresh the page to see your changes.</p>
 					<AdminStringSetting originalValue={org.name} settingKey={"orgName"} label={"Name"}
 						description={"The name of your organization"} />
@@ -27,6 +27,7 @@ export default function AdminSettingsPage(): JSX.Element {
 					<AdminStringSetting originalValue={org.home_page_text} settingKey={"homePageText"}
 						label={"Home page text"}
 						description={"The text above the amount field on the home page."} />
+					<AdminStringSetting originalValue={org.receipt_text} settingKey={"chargeDescription"} label={"Receipt text"} description={"Text to include on the customer receipt. This is usually infomration about the organization's tax-deduction status."} />
 					<AdminStringSetting originalValue={org.donate_page_title} settingKey={"donatePageTitle"}
 						label={"Donate page title"}
 						description={"The title of the donation page. By default this is the word \"Donate\""} />

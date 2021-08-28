@@ -1,11 +1,12 @@
 package api
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/gorilla/mux"
 	"github.com/willbarkoff/donorfide/donorfide/database"
 	"github.com/willbarkoff/donorfide/donorfide/logging"
-	"net/http"
-	"strconv"
 )
 
 type orgContext struct {
@@ -25,6 +26,7 @@ type orgContext struct {
 	DonationSuccessHeadline    string `json:"donation_success_headline"`
 	DonationSuccessSubheadline string `json:"donation_success_subheadline"`
 	DonationSuccessText        string `json:"donation_success_text"`
+	ReceiptText                string `json:"receipt_text"`
 }
 
 func setupContextEndpoints(r *mux.Router) {

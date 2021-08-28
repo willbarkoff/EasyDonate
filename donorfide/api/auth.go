@@ -2,10 +2,11 @@ package api
 
 import (
 	"errors"
-	"github.com/willbarkoff/donorfide/donorfide/database"
-	"golang.org/x/crypto/bcrypt"
 	"net/http"
 	"time"
+
+	"github.com/willbarkoff/donorfide/donorfide/database"
+	"golang.org/x/crypto/bcrypt"
 
 	"github.com/gorilla/mux"
 	"github.com/wader/gormstore/v2"
@@ -43,6 +44,8 @@ func me(w http.ResponseWriter, r *http.Request) {
 		logging.Logger.Err(err).Msg("Getting user ID in auth/me")
 	}
 
+	logging.Logger.Debug().Int("ID", id).Send()
+
 	if id == -1 {
 		writeJSON(w, http.StatusUnauthorized, statusUnauthorized)
 		return
@@ -76,7 +79,7 @@ func login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	updateUser(1, w, r)
+	updateUser(int(user.ID), w, r)
 }
 
 func logout(w http.ResponseWriter, r *http.Request) {
@@ -92,6 +95,8 @@ func updateUser(newId int, w http.ResponseWriter, r *http.Request) {
 	}
 
 	session.Values["id"] = newId
+
+	logging.Logger.Debug().Int("session.Values[\"id\"]", session.Values["id"].(int)).Send()
 
 	err = session.Save(r, w)
 	if err != nil {
